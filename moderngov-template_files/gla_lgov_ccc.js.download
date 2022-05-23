@@ -1,0 +1,9 @@
+document.addEventListener('DOMContentLoaded', (event) => {
+  if (document.getElementById('view-cookie-settings')) {
+    document.getElementById('view-cookie-settings').onclick = function () {
+      if (CookieControl) {
+        CookieControl.open();
+      }
+    };
+  }
+});

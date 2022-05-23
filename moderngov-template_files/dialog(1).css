@@ -1,0 +1,18 @@
+/**
+ * @file
+ * Contains base dialog styles.
+ */
+
+/* Lock body-level scrolling when dialogs are open as modals. */
+body.drupal-dialog-open-modal {
+  position: fixed;
+}
+
+/* Used to calculate the width of the browser's scrollbar dynamically. */
+.drupal-dialog-scrollbar-measure {
+  width: 100px;
+  height: 100px;
+  overflow: scroll;
+  position: absolute;
+  top: -9999px;
+}

@@ -1,0 +1,7 @@
+"use strict";document.addEventListener("DOMContentLoaded",function(){var a=function(){// This takes the value of `scroll-padding-top` on the `html` element (set by the Drupal admin toolbar and
+// eventually by our site header) and sets it as a CSS custom property so we can use it for positioning
+// sticky elements in a way that will always appear under any sticky headers.
+var a=window.getComputedStyle(document.documentElement),b=a.scrollPaddingTop;// Have we got a numeric value, or is it 'auto'? If we can't parse the computed style into a number then we fall
+// back to 0px.
+Number.isNaN(Number.parseFloat(b))&&(b="0px"),document.contains(document.getElementById("html-scroll-padding-top"))&&document.getElementById("html-scroll-padding-top").remove(),b&&document.head.insertAdjacentHTML("beforeend","<style id=\"html-scroll-padding-top\">:root,::before,::after {--html-scroll-padding-top: ".concat(b,"}</style>"))};a(),window.addEventListener("resize",Drupal.debounce(a,250)),window.jQuery&&jQuery(document).on("drupalViewportOffsetChange.toolbar",a)});
+//# sourceMappingURL=set-scroll-padding-top.js.map

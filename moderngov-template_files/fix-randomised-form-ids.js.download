@@ -1,0 +1,5 @@
+"use strict";(function(a){// See https://www.drupal.org/project/drupal/issues/1852090#comment-13624394.
+a.behaviors.glaFixRandomisedFormIds={attach:function attach(a){// Update form element labels for elements that have had their ID
+// altered by _gla_core_theme_prevent_duplicate_form_element_ids().
+var b=a.querySelectorAll("[id$='--randomised']");b.forEach(function(a){var b=a.id,c=a.closest(".js-form-item");if(c){var d=c.querySelector("label");d.setAttribute("for",b)}})}}})(Drupal);
+//# sourceMappingURL=fix-randomised-form-ids.js.map

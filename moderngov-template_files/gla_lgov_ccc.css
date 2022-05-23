@@ -1,0 +1,43 @@
+.ccc-accept-button,
+.ccc-reject-button {
+  border-color: #e7135d !important;
+}
+
+.ccc-accept-button:hover,
+.ccc-reject-button:hover {
+  background-color: #e7135d !important;
+}
+
+.ccc-accept-button:hover span ,
+.ccc-reject-button:hover span {
+  color: #ffffff !important;
+}
+
+#ccc #ccc-content #ccc-dismiss-button:hover {
+  text-decoration: underline;
+  color: #fff;
+  border-color: #9e0059 !important;
+  background-color: #9e0059 !important;
+  text-decoration-thickness: 0.125rem;
+  -webkit-text-decoration-style: solid;
+  text-decoration-style: solid;
+  text-underline-offset: 0.1875rem;
+}
+
+#ccc #ccc-content #ccc-dismiss-button:hover span {
+  border-color: #9e0059 !important;
+  background-color: #9e0059 !important;
+}
+
+.checkbox-toggle:focus-within {
+  outline: 0 solid #e7135d !important;
+}
+
+#ccc .ccc-notify-button {
+  border-radius: 6px !important;
+  font-weight: 700 !important;
+}
+
+#ccc-module.ccc-module--slideout {
+  max-width: 530px !important;
+}

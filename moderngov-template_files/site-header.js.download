@@ -1,0 +1,34 @@
+"use strict";document.addEventListener("alpine:init",function(){Alpine.data("headerSearch",function(){return{siteSearchOpen:!1,toggleSiteSearchOpen:function toggleSiteSearchOpen(){this.siteSearchOpen=!this.siteSearchOpen},init:function init(){var a=this,b=document.documentElement,c=function(){var c=a.$refs["search-bar"].clientHeight,d=a.$refs["search-bar"].getBoundingClientRect().bottom;b.style.setProperty("--search-bar-height","".concat(c,"px")),b.style.setProperty("--search-autocomplete-top","".concat(Math.floor(d),"px"))};this.$watch("siteSearchOpen",function(a){!0===a?(document.getElementById("header-search-input").focus(),c(),window.addEventListener("resize",Drupal.debounce(c,250)),window.addEventListener("scroll",Drupal.debounce(c,100))):c()})}}}),Alpine.data("siteHeader",function(){return{headroomInstance:null,pinHeader:function pinHeader(){this.$root&&this.headroomInstance.pin()},init:function init(){var a=this,b=document.documentElement,c=function(){var c=document.getElementById("toolbar-bar");if(c){var d=c.clientHeight,e=document.getElementsByClassName("toolbar-tray is-active toolbar-tray-horizontal")[0].clientHeight,f=a.$root.clientHeight+(d+e);b.style.setProperty("--header-height","".concat(f,"px")),b.style.setProperty("--raw-header-height","".concat(a.$root.clientHeight,"px"))}else{var g=a.$root.clientHeight;b.style.setProperty("--header-height","".concat(g,"px")),b.style.setProperty("--raw-header-height","".concat(g,"px"))}};setTimeout(function(){c()},1e3),window.addEventListener("resize",Drupal.debounce(c,250));// Init headroom.js (make the header disappear on scroll down then sticky on scroll up)
+var d={offset:{// We don't want headroom to react until the header
+// has naturally scrolled out of view if the user
+// is at the top of the page. Otherwise it'll jerk
+// away faster than they are actually scrolling down.
+down:this.$root?this.$root.clientHeight:70},classes:{// Once the header is no longer at the top of the page
+// we make it be sticky the whole time, and we use
+// translate-y to move it in and out of view as it is
+// pinned and unpinned. The content is only visually
+// hidden so should still be accessible to assistive tech.
+// We use an Alpine focus event listener to automatically
+// pin the header if an item inside it receives focus, like
+// a link or an input in the search form.
+notTop:"u-sticky u-top-0 u-transform",pinned:"u-translate-y-0 u-ease-in",unpinned:"u--translate-y-full u-ease-out"},onNotTop:function onNotTop(){var a=this;// Now that we have scrolled lower than the height
+// of the header we can animate changes to its transform
+// value without the user seeing flickering. We just need
+// to wait for the element to be translated upwards before
+// we can add the transition class.
+setTimeout(function(){a.elem&&a.elem.classList.add("u-transition-transform")},500)},onTop:function onTop(){this.elem&&this.elem.classList.remove("u-transition-transform")}};this.$root&&(this.headroomInstance=new Headroom(this.$root,d),this.headroomInstance.init())}}}),Alpine.data("primaryNavigation",function(){return{open:!1,currentSubLevel:null,menuTrail:["0"],toggle:function toggle(){this.open=!this.open},changeLevel:function changeLevel(a,b){var c=this;this.menuTrail.push(b);// When a sub level is open set back to parent height
+// as a CSS custom property for our CSS to use.
+var d=function(){var a=c.$refs["back-to-parent-".concat(b)].clientHeight;document.documentElement.style.setProperty("--parent-back-menu-height","".concat(a,"px"))},e=this.$refs["container--".concat(b)];// When a sub level is open enable scrolling for it.
+// After the transition is likely to have finished, reset
+// the previous level's scroll position.
+bodyScrollLock.disableBodyScroll(e),setTimeout(function(){d();var b=c.$refs["container--".concat(a)];b&&b.scrollTo(0,0)},500)},contractOneLevel:function contractOneLevel(a){if(1>a){// If current level is the first level, enable scrolling for it.
+var b=document.querySelector("nav ul.nav-list");bodyScrollLock.disableBodyScroll(b)}this.menuTrail.pop()},isWithinTrail:function isWithinTrail(a){return this.menuTrail.includes(a)},isMostExpandedLevel:function isMostExpandedLevel(a){return this.menuTrail[this.menuTrail.length-1]===a},init:function init(){var a=this;// Watch the menu trail array.
+this.$watch("menuTrail",function(b){// Set the currently open level (the last value of the array).
+a.currentSubLevel=b.at(-1)}),this.$watch("open",function(b){if(!(!0===b)){bodyScrollLock.clearAllBodyScrollLocks();// Reset the scroll position of the menu when the menu is
+// closed.
+var c=a.$refs["container--0"];c&&c.scrollTo(0,0)}else if(a.currentSubLevel){// If menu is open and sub level is open, add body lock and enable
+// scrolling for sub level.
+var d=document.querySelector("nav div.nav-list");bodyScrollLock.disableBodyScroll(d)}else{// If menu is open and sub level is closed, add body lock and enable
+// scrolling for first level.
+var e=document.querySelector("nav ul.nav-list");bodyScrollLock.disableBodyScroll(e)}})}}})});
+//# sourceMappingURL=site-header.js.map
